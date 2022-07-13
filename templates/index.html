@@ -1,33 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Webpage Title -->
-    <title>Home | 팔도어때</title>
-
-    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <!-- Bulma CSS -->
     <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
     />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <title>팔도 어때</title>
+
     <!-- Font Awesome CSS -->
     <link
       href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
-    <script src="https://kit.fontawesome.com/5b75d34f0e.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/5b75d34f0e.js"
+      crossorigin="anonymous"
+    ></script>
     <!-- css파일 링크-->
     <link
       href="{{ url_for('static', filename='mystyle.css') }}"
       rel="stylesheet"
     />
-      <!-- 구글폰트-->
+    <!-- 구글폰트-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -40,15 +49,28 @@
       href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap"
       rel="stylesheet"
     />
-<style>
-  
-</style>
+    <style>
+      * {
+        font-family: "Gugi", cursive;
+      }
 
-    
+      .festival {
+        width: 1200px;
+        height: 200px;
+        text-align: center;
+        margin: auto;
+        padding-top: 50px;
+      }
 
-<!-- JS -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+      .festival > col {
+        width: 100px;
+        height: 200px;
+      }
+    </style>
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
     <script>
       //쿠키를 지워주는 함수
@@ -60,23 +82,23 @@
 
       $(document).ready(function () {
         listing();
-    });
+      });
 
-    function listing() {
+      function listing() {
         $.ajax({
-            type: "GET",
-            url: "/secretpage",
-            data: {},
-            success: function (response) {
-                let rows = response["festivals"]
-                for (let i = 0; i < rows.length; i++) {
-                    let title = rows[i]['title']
-                    let image = rows[i]['image']
-                    let where_place = rows[i]['where_place']
-                    let url = rows[i]['url']
-                    let all_date = rows[i]['all_date']
+          type: "GET",
+          url: "/secretpage",
+          data: {},
+          success: function (response) {
+            let rows = response["festivals"];
+            for (let i = 0; i < rows.length; i++) {
+              let title = rows[i]["title"];
+              let image = rows[i]["image"];
+              let where_place = rows[i]["where_place"];
+              let url = rows[i]["url"];
+              let all_date = rows[i]["all_date"];
 
-                    let temp_html = `<div class="col">
+              let temp_html = `<div class="col">
                                                 <div class="card h-100">
                                                     <img src="${image}" class="card-img-top"
                                                          alt="...">
@@ -85,20 +107,19 @@
                                                         <p class="card-text">${where_place}</p>
                                                         <a href="http://ticket.interpark.com/${url}" class="btn btn-warning"
                                                            role="button">예매 하기</a>
-                                                        <button type="button" class="button  has-text-centered is-sparta is-outlined" onClick="location.href='/review'">리뷰 쓰기</button>
+                                                        <button type="button" class="btn btn-success" onClick="location.href='/review'">리뷰 쓰기</button>
                                                     </div>
                                                     <div class="card-footer">
                                                         <small class="text-muted">${all_date}</small>
                                                     </div>
                                                 </div>
                                             </div>`;
-                    $('#cards_box').append(temp_html)
-                }
-                console.log(rows);
+              $("#cards_box").append(temp_html);
             }
-        })
-    }
-
+            console.log(rows);
+          },
+        });
+      }
     </script>
   </head>
   <body>
@@ -106,45 +127,67 @@
       class="navbar is-fixed-top is-white"
       role="navigation"
       aria-label="main navigation"
+      style="background-color: #fff !important; margin-top: 0px"
     >
-    <button type="button" class="button level-item has-text-centered is-sparta navbar-icon goback"  style="float:right">이전</button>
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
+      <div style="margin-left: 45%" class="navbar-brand">
+        <a style="text-decoration: none" class="navbar-item" href="/">
           <!-- <img src="{{ url_for('static', filename='logo.png') }}" /> -->
           <strong
             class="is-sparta"
-            style="font-family: 'Gugi', cursive; font-size: 3rem"
+            style="
+              font-family: 'Gugi', cursive;
+              font-size: 3rem;
+              color: #80cbc4 !important;
+            "
             >팔도어때</strong
           >
         </a>
-     </div>
+      </div>
 
-     <div class="iconbox">
-      <a class="button level-item has-text-centered is-sparta navbar-icon" href="/user/{{ user_info.username }}">
-       <i class="fa-solid fa-user"></i>
-             <!-- <img class="is-rounded" src="{{ url_for('static', filename=user_info.profile_pic_real) }}"> -->
-         </a>
-     <a
-     class="button level-item has-text-centered is-sparta navbar-icon"
-     aria-label="logout"
-     onclick="sign_out()">
-     <i class="fa-solid fa-right-from-bracket"></i></a></div>
+      <div class="iconbox">
+        <a
+          id="iconbox-user"
+          class="button level-item has-text-centered is-sparta navbar-icon"
+          href="/user/{{ user_info.username }}"
+        >
+          <i
+            style="
+              color: #fff !important;
+              background-color: #80cbc4;
+              padding: 5px;
+              border-radius: 10px;
+            "
+            class="fa-solid fa-2x fa-user"
+          ></i>
+          <!-- <img class="is-rounded" src="{{ url_for('static', filename=user_info.profile_pic_real) }}"> -->
+        </a>
+        <a
+          class="button level-item has-text-centered is-sparta navbar-icon"
+          aria-label="logout"
+          onclick="sign_out()"
+        >
+          <i
+            style="
+              color: #fff !important;
+              background-color: #80cbc4;
+              padding: 5px;
+              border-radius: 10px;
+            "
+            class="fa-solid fa-2x fa-right-from-bracket"
+          ></i
+        ></a>
+      </div>
     </nav>
     <section class="section">
       <article class="media">
-          <figure class="media-left" style="align-self: center">
-          
-          </figure>
-         
-          </div>
+        <figure class="media-left" style="align-self: center"></figure>
       </article>
-  </section>
-  <div style="margin-top:30px">
+    </section>
+    <div style="margin-top: 30px; margin-left: 30px; font-size: 20px">
       {{ user_info.username }}님이 선택한 축제는?
-  </div>
-  <div class="festival">
-    <div id="cards_box" class="row row-cols-1 row-cols-md-4 g-4">
     </div>
-</div>
+    <div class="festival">
+      <div id="cards_box" class="row row-cols-1 row-cols-md-4 g-4"></div>
+    </div>
   </body>
 </html>

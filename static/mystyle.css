@@ -1,12 +1,10 @@
 body {
   background-color:  #80cbc4;
   min-height: 100vh;
-  padding-top: 3.25rem;
   font-family: "Gugi", cursive;
 }
 
 .section {
-  padding: 1rem 1.5rem;
   max-width: 750px;
   margin: auto;
 }
@@ -19,6 +17,7 @@ body {
   background-color: #80cbc4;
   border-color: transparent;
   color: #fff !important;
+  border-radius: 30px;
 }
 
 .button.is-sparta.is-outlined {
@@ -42,7 +41,6 @@ input::-webkit-calendar-picker-indicator {
   height: 100%;
 }
 
-
 .navbar{
  min-height: 6.25rem;
  display: flex;
@@ -54,8 +52,10 @@ input::-webkit-calendar-picker-indicator {
   align-items: center;
   margin-right: 10px;
 }
+
 .navbar-icon{
   margin-right: 10px;
+  margin-bottom: 20px;
 }
 .navbar-icon:hover{
   background-color: #4f9a94;
@@ -66,15 +66,55 @@ input::-webkit-calendar-picker-indicator {
   margin-left:20px;
 }
 
-.festival {
-  width: 980px;
-  height: 200px;
-  text-align: center;
-  margin: auto;
-  padding-top: 50px
-
+.festival-box {
+  background-color: #80cbc4 !important;
 }
 
-.festival > col {
-  width: 100px;
-  height: 200px;}
+
+/*여기는테스트*/
+h1,
+h5 {
+  display: inline;
+}
+
+.info {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.review {
+  text-align: center;
+}
+
+.reviews {
+  margin-top: 100px;
+  background: pink;
+}
+.input-group-prepend{
+  display: inline-flex
+}
+.info{
+  background-color: white;
+  padding: 50px
+}
+.profile-img{
+  width: 20px;
+  height: 20px;
+}
+.profile-box{
+  margin-top: 84px;
+  margin-left: 200px;
+ 
+} 
+ .profile-button{
+  color: black;
+  border-style: ridge;
+  border-radius: 10px;
+  padding: 3px;
+  margin: 5px;
+  padding-left: 20px;
+  background-color: white
+ } 
+ .profile-container{
+  width: 400px
+ } 

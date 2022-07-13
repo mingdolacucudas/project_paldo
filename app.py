@@ -143,7 +143,17 @@ def save_img():
 #리뷰기능
 @app.route('/review')
 def reviewpage():
-   return render_template('review.html')
+    token_receive = request.cookies.get('mytoken')   #발급해준 토큰 가져오기(쿠키에 담겨져서 서버에오게됨)
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        return render_template('review.html', user_info=user_info)
+        
+       
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 
 

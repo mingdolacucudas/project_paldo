@@ -1,161 +1,238 @@
-<!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <!-- Webpage Title -->
-    <title>팔도어때</title>
+<!doctype html>
+<html lang="en">
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <title>팔도 어때</title>
+
+    <!-- Font Awesome CSS -->
     <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
+            href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+            rel="stylesheet"
     />
+    <script src="https://kit.fontawesome.com/5b75d34f0e.js" crossorigin="anonymous"></script>
+    <!-- css파일 링크-->
+    <link
+            href="{{ url_for('static', filename='mystyle.css') }}"
+            rel="stylesheet"
+    />
+    <!-- 구글폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Gugi&display=swap"
+            rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap"
+            rel="stylesheet"
+    />
+    <style>
+        * {
+            font-family: 'Gugi', cursive;
+        }
+
+        .festival {
+            width: 1200px;
+            height: 200px;
+            text-align: center;
+            margin: auto;
+            padding-top: 50px
+
+        }
+
+        .festival > col {
+            width: 100px;
+            height: 200px;
+        }
+
+    </style>
+
 
     <!-- JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
-    <!-- 구글폰트 -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap"
-      rel="stylesheet"
-    />
+    <script>
+        //쿠키를 지워주는 함수
+        function sign_out() {
+            $.removeCookie("mytoken", {path: "/"});
+            alert("안녕히 가세요(●'◡'●)");
+            window.location.href = "/login";
+        }
 
-    <script type="text/javascript">
-      $(document).ready(function () {
-        showReview();
-      });
-
-      function makeReview() {
-        let title = $("#title").val();
-        let author = $("#author").val();
-        let review = $("#bookReview").val();
-
-        $.ajax({
-          type: "POST",
-          url: "/review",
-          data: { title_give: title, author_give: author, review_give: review },
-          success: function (response) {
-            alert(response["msg"]);
-            window.location.reload();
-          },
+        $(document).ready(function () {
+            listing();
         });
-      }
 
-      function showReview() {
-        $.ajax({
-          type: "GET",
-          url: "/review/get",
-          data: {},
-          success: function (response) {
-            let reviews = response["all_reviews"];
-            for (let i = 0; i < reviews.length; i++) {
-              let title = reviews[i]["title"];
-              let author = reviews[i]["author"];
-              let review = reviews[i]["review"];
-
-              let temp_html = `<tr>
-                                                <td>${title}</td>
-                                                <td>${author}</td>
-                                                <td>${review}</td>
-                                            </tr>`;
-              $("#reviews-box").append(temp_html);
-            }
-          },
+        $(document).ready(function () {
+          showReview();
         });
-      }
+  
+        function makeReview() {
+          let title = $("#title").val();
+          let author = $("#star").val();
+          let review = $("#bookReview").val();
+  
+          $.ajax({
+            type: "POST",
+            url: "/review",
+            data: { title_give: title, author_give: author, review_give: review },
+            success: function (response) {
+              alert(response["msg"]);
+              window.location.reload();
+            },
+          });
+        }
+  
+        function showReview() {
+          $.ajax({
+            type: "GET",
+            url: "/review/get",
+            data: {},
+            success: function (response) {
+              let reviews = response["all_reviews"];
+              for (let i = 0; i < reviews.length; i++) {
+                let title = reviews[i]["title"];
+                let author = reviews[i]["author"];
+                let review = reviews[i]["review"];
+                let star_image= '⭐'.repeat(author)
+                let temp_html = `
+                                              
+                                              <div class="card">
+                                                <div class="card-header">
+                                                  축제명 | ${title}
+                                                </div>
+                                                <div class="card-body">
+                                                  <p class="card-text">리뷰 | </p>
+                                                  <p class="card-text">${review} </p>
+                                                  <div>${star_image}</div>
+                                                </div>
+                                              </div>
+                                              `;
+                $("#reviews-box").append(temp_html);
+              }
+            },
+          });
+        }
+  
+  
+
     </script>
+</head>
+<body>
+<nav
+        class="navbar is-fixed-top is-white"
+        role="navigation"
+        aria-label="main navigation"
+        style="background-color: #fff !important; margin-top: 0px;"
+>
+    <div style="margin-left: 45%;" class="navbar-brand">
+        <a style="text-decoration: none;" class="navbar-item" href="/">
+            <!-- <img src="{{ url_for('static', filename='logo.png') }}" /> -->
+            <strong
+                    class="is-sparta"
+                    style="font-family: 'Gugi', cursive; font-size: 3rem; color:  #80cbc4 !important;"
+            >팔도어때</strong
+            >
+        </a>
+    </div>
 
-    <style type="text/css">
-      * {
-        font-family: "Do Hyeon", sans-serif;
-      }
+    <div class="iconbox">
+        <a id="iconbox-user" class="button level-item has-text-centered is-sparta navbar-icon"
+           href="/user/{{ user_info.username }}">
+            <i style="color: #fff !important; background-color: #80cbc4; padding: 5px; border-radius: 10px"
+               class="fa-solid fa-2x fa-user"></i>
+            <!-- <img class="is-rounded" src="{{ url_for('static', filename=user_info.profile_pic_real) }}"> -->
+        </a>
+        <a
+                class="button level-item has-text-centered is-sparta navbar-icon"
+                aria-label="logout"
+                onclick="sign_out()">
+            <i style="color: #fff !important; background-color: #80cbc4; padding: 5px; border-radius: 10px"
+               class="fa-solid fa-2x fa-right-from-bracket"></i></a></div>
+</nav>
+<section class="section">
+    <article class="media">
+        <figure class="media-left" style="align-self: center">
 
-      h1,
-      h5 {
-        display: inline;
-      }
+        </figure>
 
-      .info {
-        margin-top: 20px;
-        margin-bottom: 20px;
-      }
-
-      .review {
-        text-align: center;
-      }
-
-      .reviews {
-        margin-top: 100px;
-        background: pink;
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="container" style="max-width: 600px">
-      <img
-        src="https://a.cdn-hotels.com/gdcs/production109/d194/8f78ecf7-0ca9-426a-a087-bdd4b9a7bf18.jpg"
-        class="img-fluid"
-        alt="Responsive image"
-      />
-      <div class="info">
-        <h1>축제에 대해 얘기해 주세요.</h1>
-        <p>다른 사람을 위해 리뷰를 남겨주세요!</p>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">닉네임</span>
-          </div>
-          <input type="text" class="form-control" id="title" />
-        </div>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">축제명</span>
-          </div>
-          <input type="text" class="form-control" id="author" />
-        </div>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">리뷰</span>
-          </div>
-          <textarea
-            class="form-control"
-            id="bookReview"
-            cols="30"
-            rows="5"
-            placeholder="140자까지 입력할 수 있습니다."
-          ></textarea>
-        </div>
-        <div class="review">
-          <button onclick="makeReview()" type="button" class="btn btn-danger">
-            리뷰 작성하기
-          </button>
-        </div>
+    </article>
+</section>
+<div class="container" style="max-width: 600px">
+  <img
+    src="https://a.cdn-hotels.com/gdcs/production109/d194/8f78ecf7-0ca9-426a-a087-bdd4b9a7bf18.jpg"
+    class="img-fluid"
+    alt="Responsive image"
+  />
+  <div class="info">
+    <h1>축제에 대해 얘기해 주세요.</h1>
+    <p>다른 사람을 위해 리뷰를 남겨주세요!</p>
+    <div class="input-group mb-3">
+       <div class="input-group-prepend">
+        <span class="input-group-text">축제명</span>
       </div>
-      <div class="reviews">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">닉네임</th>
-              <th scope="col">축제명</th>
-              <th scope="col">리뷰</th>
-            </tr>
-          </thead>
-          <tbody id="reviews-box"></tbody>
-        </table>
+      <input type="text" class="form-control" id="title" />
+    </div> 
+    
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">별점</label>
+    <select class="form-select" id="star">
+        <option selected>-- 선택하기 --</option>
+        <option value="1">⭐</option>
+        <option value="2">⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+        <option value="4">⭐⭐⭐⭐</option>
+        <option value="5">⭐⭐⭐⭐⭐</option>
+    </select>
       </div>
     </div>
-  </body>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">리뷰</span>
+      </div>
+      <textarea
+        class="form-control"
+        id="bookReview"
+        cols="30"
+        rows="5"
+        placeholder="140자까지 입력할 수 있습니다."
+      ></textarea>
+    </div>
+    <div class="review">
+      <button onclick="makeReview()" type="button" class="post">
+        리뷰 작성하기
+      </button>
+    </div>
+  </div>
+  <div id="reviews-box">
+    <!-- <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">닉네임</th>
+          <th scope="col">축제명</th>
+          <th scope="col">리뷰</th>
+        </tr>
+      </thead>
+      <tbody id="reviews-box"></tbody>
+    </table> -->
+  </div>
+</div>
+
+
+
+</body>
 </html>
