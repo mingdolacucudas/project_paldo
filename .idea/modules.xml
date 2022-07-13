@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/paldo.iml" filepath="$PROJECT_DIR$/.idea/paldo.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/.idea/오류나서다시시작.iml" filepath="$PROJECT_DIR$/.idea/오류나서다시시작.iml" />
->>>>>>> 23edd00168908331a76729d8eebd63618d8faa88
     </modules>
   </component>
 </project>
