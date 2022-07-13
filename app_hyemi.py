@@ -19,7 +19,7 @@ def home():
    return render_template('index_hyemi.html')
 
 
-@app.route("/postlist", methods=["POST"])
+@app.route("/postList", methods=["POST"])
 def festival_post():
     url_receive = request.form["url"]
 
@@ -30,14 +30,19 @@ def festival_post():
 
     for place in places:
         title = place.select_one("td.RKtxt > span > a").text
-        image = place.select_one("td.RKthumb > a > img")['src']
+        tag = place.select_one("td.RKthumb > a > img")
         start_date = place.select_one("td:nth-child(4)").text[0:12]
         end_date = place.select_one("td:nth-child(4)").text[-11:]
         date = (start_date + end_date).strip()
-        url = place.select_one("td.RKthumb > a")['href']
+        a_url = place.select_one("td.RKthumb > a")['href']
         where_place = place.select_one("td:nth-child(3) > a").text
 
-        array.append({'title': title, 'image': image, 'date': date, 'url': url, 'where_place': where_place})
+        if tag is not None:
+            image = tag['src']
+        else:
+            image = "NONE"
+
+        array.append({'title': title, 'image': image, 'date': date, 'a_url': a_url, 'where_place': where_place})
 
     return jsonify({'result': 'success', 'list': array})
 
