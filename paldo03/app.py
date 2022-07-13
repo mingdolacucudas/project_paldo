@@ -1,3 +1,4 @@
+# 안녕하세요
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from pymongo import MongoClient
 app = Flask(__name__)
