@@ -34,7 +34,7 @@
 
 
         .festival {
-            width: 1200px;
+            width: 980px;
             height: 200px;
             text-align: center;
             margin: auto;
@@ -48,11 +48,14 @@
         }
     </style>
     <script>
+        $(document).ready(function () {
+            listing();
+        });
 
-        function show_order() {
+        function listing() {
             $.ajax({
                 type: "GET",
-                url: "/",
+                url: "/secretpage",
                 data: {},
                 success: function (response) {
                     let rows = response["festivals"]
@@ -60,7 +63,7 @@
                         let title = rows[i]['title']
                         let image = rows[i]['image']
                         let where_place = rows[i]['where_palce']
-                        let a_url = rows[i]['a_url']
+                        let url = rows[i]['url']
                         let date = rows[i]['date']
 
                         let temp_html = `<div class="col">
@@ -70,8 +73,8 @@
                                                         <div class="card-body">
                                                             <h5 class="card-title">${title}</h5>
                                                             <p class="card-text">${where_place}</p>
-                                                            <a href="https://tickets.interpark.com/goods/21010162" class="btn btn-warning"
-                                                               role="button">${a_url}</a>
+                                                            <a href="${url}" class="btn btn-warning"
+                                                               role="button">예매 하기</a>
                                                             <button type="button" class="btn btn-success">리뷰 쓰기</button>
                                                         </div>
                                                         <div class="card-footer">
@@ -81,75 +84,10 @@
                                                 </div>`;
                         $('#cards_box').append(temp_html)
                     }
+                    console.log(rows);
                 }
             })
         }
-
-
-        {##}
-        {#$(document).ready(function () {#}
-        {#    postList();#}
-
-        {##}
-        {#function postList() {#}
-        {#    let url = "http://ticket.interpark.com/TPGoodsList.asp?Ca=Eve&SubCa=Eve_C&Sort=3";#}
-        {#    $.ajax({#}
-        {#        type: 'POST',#}
-        {#        url: '/postList',#}
-        {#        data: {"url": url},#}
-        {#        success: function (response) {#}
-        {##}
-        {#            let rows = response['list']#}
-        {#            for (let i = 0; i < rows.length; i++) {#}
-        {#                let title = rows[i]['title']#}
-        {#                let image = rows[i]['image']#}
-        {#                let where_place = rows[i]['where_palce']#}
-        {#                let a_url = rows[i]['a_url']#}
-        {#                let date = rows[i]['date']#}
-        {##}
-        {#                let temp_html = ``;#}
-        {##}
-        {#                if (image == "NONE") {#}
-        {#                    temp_html = `<div class="col">#}
-        {#                                            <div class="card h-100">#}
-        {#                                                <img src="../../../../minipro/static/image/no_img.png" class="card-img-top"#}
-        {#                                                     alt="...">#}
-        {#                                                <div class="card-body">#}
-        {#                                                    <h5 class="card-title">${title}</h5>#}
-        {#                                                    <p class="card-text">${where_place}</p>#}
-        {#                                                    <a href="https://tickets.interpark.com/goods/21010162" class="btn btn-warning"#}
-        {#                                                       role="button">${a_url}</a>#}
-        {#                                                    <button type="button" class="btn btn-success">리뷰 쓰기</button>#}
-        {#                                                </div>#}
-        {#                                                <div class="card-footer">#}
-        {#                                                    <small class="text-muted">${date}</small>#}
-        {#                                                </div>#}
-        {#                                            </div>#}
-        {#                                        </div>`#}
-        {#                } else {#}
-        {#                    temp_html = `<div class="col">#}
-        {#                                            <div class="card h-100">#}
-        {#                                                <img src="${image}" class="card-img-top"#}
-        {#                                                     alt="...">#}
-        {#                                                <div class="card-body">#}
-        {#                                                    <h5 class="card-title">${title}</h5>#}
-        {#                                                    <p class="card-text">${where_place}</p>#}
-        {#                                                    <a href="https://tickets.interpark.com/goods/21010162" class="btn btn-warning"#}
-        {#                                                       role="button">${a_url}</a>#}
-        {#                                                    <button type="button" class="btn btn-success">리뷰 쓰기</button>#}
-        {#                                                </div>#}
-        {#                                                <div class="card-footer">#}
-        {#                                                    <small class="text-muted">${date}</small>#}
-        {#                                                </div>#}
-        {#                                            </div>#}
-        {#                                        </div>`#}
-        {#                }#}
-        {#            }#}
-        {#            $('#cards_box').append(temp_html)#}
-        {#        }#}
-        {#    });#}
-
-
     </script>
 </head>
 
@@ -165,70 +103,6 @@
 </div>
 <div class="festival">
     <div id="cards_box" class="row row-cols-1 row-cols-md-4 g-4">
-        <div class="col">
-            <div class="card h-100">
-                <img src="https://ticketimage.interpark.com/Play/image/large/21/21010162_p.gif" class="card-img-top"
-                     alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">2022 보령해양머드박람회</h5>
-                    <p class="card-text">대천해수욕장 일원</p>
-                    <a href="https://tickets.interpark.com/goods/21010162" class="btn btn-warning"
-                       role="button">예매하기</a>
-                    <button type="button" class="btn btn-success">리뷰 쓰기</button>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">22.07.16~22.08.15</small>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100">
-                <img src="https://ticketimage.interpark.com/Play/image/large/19/19000923_p.gif" class="card-img-top"
-                     alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">궁궐야행, 창경궁</h5>
-                    <p class="card-text">창경궁</p>
-                    <a href="https://tickets.interpark.com/goods/19000923" class="btn btn-warning"
-                       role="button">예매하기</a>
-                    <button type="button" class="btn btn-success">리뷰 쓰기</button>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">19.01.25~22.12.31</small>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100">
-                <img src="https://ticketimage.interpark.com/Play/image/large/22/22007699_p.gif" class="card-img-top"
-                     alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">[부산] 2022 부산국제모터쇼</h5>
-                    <p class="card-text">부산 백스코</p>
-                    <a href="https://tickets.interpark.com/goods/22007699" class="btn btn-warning"
-                       role="button">예매하기</a>
-                    <button type="button" class="btn btn-success">리뷰 쓰기</button>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">22.07.15~22.07.24</small>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100">
-                <img src="https://ticketimage.interpark.com/Play/image/large/18/18003771_p.gif" class="card-img-top"
-                     alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">궁궐야행, 덕수궁</h5>
-                    <p class="card-text">덕수궁</p>
-                    <a href="https://tickets.interpark.com/goods/18003771" class="btn btn-warning"
-                       role="button">예매하기</a>
-                    <button type="button" class="btn btn-success">리뷰 쓰기</button>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">18.03.17~22.12.31</small>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 </body>
