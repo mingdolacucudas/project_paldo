@@ -1,7 +1,8 @@
 body {
-  background-color: RGBA(232, 52, 78, 0.2);
+  background-color:  #80cbc4;
   min-height: 100vh;
   padding-top: 3.25rem;
+  font-family: "Gugi", cursive;
 }
 
 .section {
@@ -11,19 +12,21 @@ body {
 }
 
 .is-sparta {
-  color: #e8344e !important;
+  color:  #80cbc4 !important;
 }
-
+.iconbox > i{
+   color:  #80cbc4 !important;
+}
 .button.is-sparta {
-  background-color: #e8344e;
+  background-color: #80cbc4;
   border-color: transparent;
   color: #fff !important;
 }
 
 .button.is-sparta.is-outlined {
   background-color: transparent;
-  border-color: #e8344e;
-  color: #e8344e !important;
+  border-color:  #80cbc4;
+  color:  #80cbc4 !important;
 }
 
 .modal-content {
@@ -40,3 +43,54 @@ input::-webkit-calendar-picker-indicator {
   width: 100%;
   height: 100%;
 }
+
+
+.navbar{
+ min-height: 6.25rem;
+ display: flex;
+ justify-content: space-between;
+}
+.iconbox{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10px;
+}
+.navbar-icon{
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+.navbar-icon:hover{
+  background-color: #4f9a94;
+}
+
+.goback{
+  margin-top:30px;
+  margin-left:20px;
+}
+
+.festival-box {
+  background-color: #80cbc4 !important;;
+}
+
+/*.festival {*/
+/*  width: 980px;*/
+/*  !*height: 200px;*!*/
+/*  text-align: center;*/
+/*  margin: auto;*/
+/*  padding-top: 50px;*/
+/*  column-width: 300px;*/
+/*  flex-wrap: wrap;*/
+/*}*/
+/*!*#cards_box {*!*/
+/*!*  display: inline;*!*/
+/*!*  !*display: grid;*!*!*/
+/*!*  !*flex-flow: row-reverse wrap;*!*!*/
+/*!*	!*grid-template-columns: 400px 400px 400px;*!*!*/
+/*!*	!*grid-template-rows: 400px 400px;*!*!*/
+/*!*}*!*/
+
+/*.col {*/
+/*  width: 100px;*/
+/*  height: 200px;*/
+/*}*/
