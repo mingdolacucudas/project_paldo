@@ -41,6 +41,7 @@
       body {
         background-color: RGBA(232, 52, 78, 0.2);
         min-height: 100vh;
+        background-image: "";
       }
 
       .section {
@@ -78,13 +79,17 @@
       .help {
         color: gray;
       }
-      .nav {
-        /*background-image: url("https://cdn.pixabay.com/photo/2015/07/03/23/30/frog-830869__340.jpg");*/
-        background-size: cover;
-        background-color: white;
+      .loginbox{
+        margin-top:80px;
       }
+      /*.nav {
+        background-color: white;
+      }*/
       .black {
         background-color: #80cbc4;
+        background-size:cover;
+        background-image: url("https://img.freepik.com/free-vector/enjoy-summer-holiday-with-sunglasses-ocean-blue_1314-2383.jpg?t=st=1657690844~exp=1657691444~hmac=b85e47d88a3034ded4404a7f55c438295a0089972f57d5ab05cf30c1c4d9720e&w=740");
+     /* background-image: url("https://post-phinf.pstatic.net/MjAyMjA0MDVfMjIg/MDAxNjQ5MTQ0MDc2MjM3.XAS7AroXSFYguVMNqKQsssGhOMKURtLaX54itz--masg.OwUtJ3p818iuiOvB0RrO_ADYAWT65-LgV401Douy9WIg.JPEG/06._Korea_Seoul_Conrad_Seoul_01.jpeg?type=w1200");*/
       }
     </style>
     <!-- JS -->
@@ -93,22 +98,29 @@
     <script src="{{ url_for('static', filename='login.js') }}"></script>
   </head>
   <body class="black">
-    <section class="hero is-white nav">
+    <section class="">
       <div
         class="hero-body has-text-centered"
         style="padding-bottom: 1rem; margin: auto"
       >
-        <h1 class="title is-sparta">팔도어때</h1>
-        <h3 class="subtitle is-sparta">국내축제 예매하기는 팔도어때에서!</h3>
+       
       </div>
     </section>
 
-    <section class="section">
+    <section class="section loginbox">
       <div class="container">
         <div class="box" style="max-width: 480px; margin: auto">
           <article class="media">
             <div class="media-content">
-              <div class="content">
+              <div
+        class="hero-body has-text-centered"
+        style="padding-bottom: 1rem; margin: auto"
+      >
+      <div class=""> 
+        <h1 class="title is-sparta">팔도어때</h1>
+        <h3 class="subtitle is-sparta">국내축제 예매하기는 팔도어때에서!</h3>
+      </div>
+             
                 <div class="field has-addons">
                   <div class="control has-icons-left" style="width: 100%">
                     <input
@@ -210,6 +222,7 @@
           </article>
         </div>
       </div>
+      <div class="container"></div>
     </section>
   </body>
 </html>

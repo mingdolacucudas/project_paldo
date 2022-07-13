@@ -1,152 +1,161 @@
 <!DOCTYPE html>
 <html lang="ko">
+  <head>
+    <!-- Webpage Title -->
+    <title>팔도어때</title>
 
-    <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-        <!-- Webpage Title -->
-        <title>팔도어때</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
 
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
 
+    <!-- 구글폰트 -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap"
+      rel="stylesheet"
+    />
 
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script type="text/javascript">
+      $(document).ready(function () {
+        showReview();
+      });
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-              crossorigin="anonymous">
+      function makeReview() {
+        let title = $("#title").val();
+        let author = $("#author").val();
+        let review = $("#bookReview").val();
 
-        <!-- JS -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-                crossorigin="anonymous"></script>
+        $.ajax({
+          type: "POST",
+          url: "/review",
+          data: { title_give: title, author_give: author, review_give: review },
+          success: function (response) {
+            alert(response["msg"]);
+            window.location.reload();
+          },
+        });
+      }
 
-        <!-- 구글폰트 -->
-        <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
+      function showReview() {
+        $.ajax({
+          type: "GET",
+          url: "/review",
+          data: {},
+          success: function (response) {
+            let reviews = response["all_reviews"];
+            for (let i = 0; i < reviews.length; i++) {
+              let title = reviews[i]["title"];
+              let author = reviews[i]["author"];
+              let review = reviews[i]["review"];
 
-        <script type="text/javascript">
-
-            $(document).ready(function () {
-                showReview();
-            });
-
-            function makeReview() {
-                let title = $('#title').val()
-                let author = $('#author').val()
-                let review = $('#bookReview').val()
-
-                $.ajax({
-                    type: "POST",
-                    url: "/review",
-                    data: {title_give:title,author_give:author,review_give:review},
-                    success: function (response) {
-                        alert(response["msg"]);
-                        window.location.reload();
-                    }
-                })
-            }
-
-            function showReview() {
-                $.ajax({
-                    type: "GET",
-                    url: "/review",
-                    data: {},
-                    success: function (response) {
-                        let reviews = response['all_reviews']
-                        for (let i = 0; i < reviews.length; i++) {
-                            let title = reviews[i]['title']
-                            let author = reviews[i]['author']
-                            let review = reviews[i]['review']
-
-                            let temp_html = `<tr>
+              let temp_html = `<tr>
                                                 <td>${title}</td>
                                                 <td>${author}</td>
                                                 <td>${review}</td>
-                                            </tr>`
-                            $('#reviews-box').append(temp_html)
-                        }
-                    }
-                })
+                                            </tr>`;
+              $("#reviews-box").append(temp_html);
             }
+          },
+        });
+      }
+    </script>
 
-        </script>
+    <style type="text/css">
+      * {
+        font-family: "Do Hyeon", sans-serif;
+      }
 
+      h1,
+      h5 {
+        display: inline;
+      }
 
-        <style type="text/css">
-            * {
-                font-family: "Do Hyeon", sans-serif;
-            }
+      .info {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
 
-            h1,
-            h5 {
-                display: inline;
-            }
+      .review {
+        text-align: center;
+      }
 
-            .info {
-                margin-top: 20px;
-                margin-bottom: 20px;
-            }
+      .reviews {
+        margin-top: 100px;
+        background: pink;
+      }
+    </style>
+  </head>
 
-            .review {
-                text-align: center;
-            }
-
-            .reviews {
-                margin-top: 100px;
-                background: pink;
-            }
-
-        </style>
-    </head>
-
-    <body>
-
-    <div class="container" style="max-width: 600px;">
-            <img src="https://a.cdn-hotels.com/gdcs/production109/d194/8f78ecf7-0ca9-426a-a087-bdd4b9a7bf18.jpg"
-                 class="img-fluid" alt="Responsive image">
-            <div class="info">
-                <h1>축제에 대해 얘기해 주세요.</h1>
-                <p>다른 사람을 위해 리뷰를 남겨주세요!</p>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">닉네임</span>
-                    </div>
-                    <input type="text" class="form-control" id="title">
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">축제명</span>
-                    </div>
-                    <input type="text" class="form-control" id="author">
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">리뷰</span>
-                    </div>
-                    <textarea class="form-control" id="bookReview"
-                              cols="30"
-                              rows="5" placeholder="140자까지 입력할 수 있습니다."></textarea>
-                </div>
-                <div class="review">
-                    <button onclick="makeReview()" type="button" class="btn btn-danger">리뷰 작성하기</button>
-                </div>
-            </div>
-            <div class="reviews">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">닉네임</th>
-                        <th scope="col">축제명</th>
-                        <th scope="col">리뷰</th>
-                    </tr>
-                    </thead>
-                    <tbody id="reviews-box">
-                    </tbody>
-                </table>
-            </div>
+  <body>
+    <div class="container" style="max-width: 600px">
+      <img
+        src="https://a.cdn-hotels.com/gdcs/production109/d194/8f78ecf7-0ca9-426a-a087-bdd4b9a7bf18.jpg"
+        class="img-fluid"
+        alt="Responsive image"
+      />
+      <div class="info">
+        <h1>축제에 대해 얘기해 주세요.</h1>
+        <p>다른 사람을 위해 리뷰를 남겨주세요!</p>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">닉네임</span>
+          </div>
+          <input type="text" class="form-control" id="title" />
         </div>
-    </body>
-
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">축제명</span>
+          </div>
+          <input type="text" class="form-control" id="author" />
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">리뷰</span>
+          </div>
+          <textarea
+            class="form-control"
+            id="bookReview"
+            cols="30"
+            rows="5"
+            placeholder="140자까지 입력할 수 있습니다."
+          ></textarea>
+        </div>
+        <div class="review">
+          <button onclick="makeReview()" type="button" class="btn btn-danger">
+            리뷰 작성하기
+          </button>
+        </div>
+      </div>
+      <div class="reviews">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">닉네임</th>
+              <th scope="col">축제명</th>
+              <th scope="col">리뷰</th>
+            </tr>
+          </thead>
+          <tbody id="reviews-box"></tbody>
+        </table>
+      </div>
+    </div>
+  </body>
 </html>

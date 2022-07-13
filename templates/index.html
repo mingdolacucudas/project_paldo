@@ -40,13 +40,26 @@
       href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap"
       rel="stylesheet"
     />
+<style>
+  .festival {
+    width: 980px;
+    height: 200px;
+    text-align: center;
+    margin: auto;
+    padding-top: 50px
 
+}
+
+.festival > col {
+    width: 100px;
+    height: 200px;
+</style>
 
     
 
-    <!-- JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<!-- JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
     <script>
       //쿠키를 지워주는 함수
@@ -56,6 +69,47 @@
         window.location.href = "/login";
       }
 
+      $(document).ready(function () {
+        listing();
+    });
+
+    function listing() {
+        $.ajax({
+            type: "GET",
+            url: "/secretpage",
+            data: {},
+            success: function (response) {
+                let rows = response["festivals"]
+                for (let i = 0; i < rows.length; i++) {
+                    let title = rows[i]['title']
+                    let image = rows[i]['image']
+                    let where_place = rows[i]['where_place']
+                    let url = rows[i]['url']
+                    let all_date = rows[i]['all_date']
+
+                    let temp_html = `<div class="col">
+                                                <div class="card h-100">
+                                                    <img src="${image}" class="card-img-top"
+                                                         alt="...">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">${title}</h5>
+                                                        <p class="card-text">${where_place}</p>
+                                                        <a href="http://ticket.interpark.com/${url}" class="btn btn-warning"
+                                                           role="button">예매 하기</a>
+                                                        <button type="button" class="button  has-text-centered is-sparta is-outlined" onClick="location.href='/review'">리뷰 쓰기</button>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <small class="text-muted">${all_date}</small>
+                                                    </div>
+                                                </div>
+                                            </div>`;
+                    $('#cards_box').append(temp_html)
+                }
+                console.log(rows);
+            }
+        })
+    }
+
     </script>
   </head>
   <body>
@@ -64,6 +118,7 @@
       role="navigation"
       aria-label="main navigation"
     >
+    <button type="button" class="button level-item has-text-centered is-sparta navbar-icon goback"  style="float:right">이전</button>
       <div class="navbar-brand">
         <a class="navbar-item" href="/">
           <!-- <img src="{{ url_for('static', filename='logo.png') }}" /> -->
@@ -89,12 +144,18 @@
     <section class="section">
       <article class="media">
           <figure class="media-left" style="align-self: center">
-           
+          
           </figure>
          
           </div>
       </article>
   </section>
-
+  <div style="margin-top:30px">
+      {{ user_info.username }}님이 선택한 축제는?
+  </div>
+  <div class="festival">
+    <div id="cards_box" class="row row-cols-1 row-cols-md-4 g-4">
+    </div>
+</div>
   </body>
 </html>

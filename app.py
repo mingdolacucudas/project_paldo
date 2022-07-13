@@ -13,9 +13,13 @@ app.config['UPLOAD_FOLDER'] = "./static/profile_pics"
 
 SECRET_KEY = 'SPARTA'
 
+import certifi
+ca = certifi.where()
 
-client = MongoClient('mongodb+srv://test:test@cluster0.us9qe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
-db = client.dbsparta_plus_week4
+client = MongoClient('mongodb+srv://test:sparta@cluster0.ysqxz.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
+db = client.dbsparta
+
+headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
 
 
 # ==========================================
@@ -32,8 +36,9 @@ def sign_in():
     
     username_receive = request.form['username_give']
     password_receive = request.form['password_give']
-#암호화하여 db에 저장
+#pw를 암호화하는 과정 
     pw_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
+    #유저네임과, 암호화된 패스워드가 db에 있는지 찾는다
     result = db.users.find_one({'username': username_receive, 'password': pw_hash})
     print("결과")
     print(result)
@@ -41,14 +46,11 @@ def sign_in():
         payload = {  #jwt 토큰 정보
          'id': username_receive,
          'exp': datetime.utcnow() + timedelta(seconds=60*60),
-        #  "profile_name": username_receive,
-        #  "profile_pic_real": "profile_pics/profile_placeholder.png"
-           # 로그인 24시간 유지
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
         print(2)
         print(payload)
-        #token전달
+        #token전달--> 쿠키에 
         return jsonify({'result': 'success', 'token': token})
          # 찾지 못하면
     else:
@@ -139,6 +141,12 @@ def save_img():
 
 
 #리뷰기능
+#@app.route('/review')
+#def reviewpage():
+#    return render_template('review.html')
+
+
+
 @app.route('/review', methods=['POST'])
 def write_review():
     title_receive = request.form['title_give']
@@ -151,16 +159,54 @@ def write_review():
         'review':review_receive
     }
 
-    db.review.insert_one(doc)
+    db.review_paldo.insert_one(doc)
 
     return jsonify({'msg': '저장 완료!'})
 
 
 @app.route('/review', methods=['GET'])
 def read_reviews():
-    reviews = list(db.review.find({}, {'_id': False}))
+    reviews = list(db.review_paldo.find({}, {'_id': False}))
     return render_template('review.html')
-        
+#render_template('review.html')
+#jsonify({'all_reviews': reviews}) 
+#예매하기 페이지
+@app.route('/secretpage')
+def web_mars_get():
+    all_festivals = list(db.festivals.find({},{'_id':False}))
+    return jsonify({'festivals':all_festivals}) 
+
+
+#예매정보불러오기
+@app.route("/postList", methods=["POST"])
+def festival_post():
+    url_receive = request.form["url"]
+
+    data = requests.get(url_receive, headers=headers)
+    soup = BeautifulSoup(data.text, 'html.parser')
+    places = soup.select("body > table > tbody > tr:nth-child(2) > td:nth-child(3) > div > div > div.con > div > table > tbody > tr")
+    array = []
+
+    for place in places:
+        title = place.select_one("td.RKtxt > span > a").text
+        tag = place.select_one("td.RKthumb > a > img")
+        start_date = place.select_one("td:nth-child(4)").text[0:12]
+        end_date = place.select_one("td:nth-child(4)").text[-11:]
+        date = (start_date + end_date).strip()
+        a_url = place.select_one("td.RKthumb > a")['href']
+        where_place = place.select_one("td:nth-child(3) > a").text
+
+        if tag is not None:
+            image = tag['src']
+        else:
+            image = "NONE"
+
+        array.append({'title': title, 'image': image, 'date': date, 'a_url': a_url, 'where_place': where_place})
+
+    return jsonify({'result': 'success', 'list': array})  
+
+
+
 #====================안쓰는 기능===========================
 @app.route('/posting', methods=['POST'])
 def posting():
