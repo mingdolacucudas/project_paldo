@@ -1,12 +1,10 @@
 body {
   background-color:  #80cbc4;
   min-height: 100vh;
-  padding-top: 3.25rem;
   font-family: "Gugi", cursive;
 }
 
 .section {
-  padding: 1rem 1.5rem;
   max-width: 750px;
   margin: auto;
 }
@@ -14,13 +12,12 @@ body {
 .is-sparta {
   color:  #80cbc4 !important;
 }
-.iconbox > i{
-   color:  #80cbc4 !important;
-}
+
 .button.is-sparta {
   background-color: #80cbc4;
   border-color: transparent;
   color: #fff !important;
+  border-radius: 30px;
 }
 
 .button.is-sparta.is-outlined {
@@ -55,6 +52,7 @@ input::-webkit-calendar-picker-indicator {
   align-items: center;
   margin-right: 10px;
 }
+
 .navbar-icon{
   margin-right: 10px;
   margin-bottom: 20px;
