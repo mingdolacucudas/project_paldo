@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <!-- Webpage Title -->
-    <title>Log In | SWEETER</title>
+    <title>Log In | 팔도어때</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -21,6 +21,7 @@
       href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
+     <!-- 구글폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -33,6 +34,9 @@
       href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap"
       rel="stylesheet"
     />
+
+
+    
     <style>
       body {
         background-color: RGBA(232, 52, 78, 0.2);
@@ -52,27 +56,35 @@
       }
 
       .subtitle {
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-family: "Gowun Batang", serif;
       }
 
       .is-sparta {
-        color: #e8344e !important;
+        color: #80cbc4 !important;
       }
       .button.is-sparta {
-        background-color: #e8344e;
+        background-color: #80cbc4;
         border-color: transparent;
         color: #fff !important;
       }
 
       .button.is-sparta.is-outlined {
         background-color: transparent;
-        border-color: #e8344e;
-        color: #e8344e !important;
+        border-color: #80cbc4;
+        color: #80cbc4 !important;
       }
 
       .help {
         color: gray;
+      }
+      .nav {
+        /*background-image: url("https://cdn.pixabay.com/photo/2015/07/03/23/30/frog-830869__340.jpg");*/
+        background-size: cover;
+        background-color: white;
+      }
+      .black {
+        background-color: #80cbc4;
       }
     </style>
     <!-- JS -->
@@ -80,14 +92,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="{{ url_for('static', filename='login.js') }}"></script>
   </head>
-  <body>
-    <section class="hero is-white">
+  <body class="black">
+    <section class="hero is-white nav">
       <div
         class="hero-body has-text-centered"
         style="padding-bottom: 1rem; margin: auto"
       >
-        <h1 class="title is-sparta">팔도여행</h1>
-        <h3 class="subtitle is-sparta">팔도축제 즐기자</h3>
+        <h1 class="title is-sparta">팔도어때</h1>
+        <h3 class="subtitle is-sparta">국내축제 예매하기는 팔도어때에서!</h3>
       </div>
     </section>
 

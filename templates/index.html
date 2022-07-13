@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <!-- Webpage Title -->
-    <title>Home | SWEETER</title>
+    <title>Home | 팔도어때</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -21,17 +21,42 @@
       href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
+    <script src="https://kit.fontawesome.com/5b75d34f0e.js" crossorigin="anonymous"></script>
     <!-- css파일 링크-->
     <link
       href="{{ url_for('static', filename='mystyle.css') }}"
       rel="stylesheet"
     />
+      <!-- 구글폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gugi&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap"
+      rel="stylesheet"
+    />
+
+
+    
 
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
-    <script></script>
+    <script>
+      //쿠키를 지워주는 함수
+      function sign_out() {
+        $.removeCookie("mytoken", { path: "/" });
+        alert("안녕히 가세요(●'◡'●)");
+        window.location.href = "/login";
+      }
+
+    </script>
   </head>
   <body>
     <nav
@@ -41,22 +66,30 @@
     >
       <div class="navbar-brand">
         <a class="navbar-item" href="/">
-          <img src="{{ url_for('static', filename='logo.png') }}" />
+          <!-- <img src="{{ url_for('static', filename='logo.png') }}" /> -->
           <strong
             class="is-sparta"
-            style="font-family: 'Stylish', sans-serif; font-size: larger"
+            style="font-family: 'Gugi', cursive; font-size: 3rem"
             >팔도어때</strong
           >
         </a>
-        <a class="image is-32x32" href="/user/{{ user_info.username }}">
-                  <img class="is-rounded" src="{{ url_for('static', filename=user_info.profile_pic_real) }}">
-              </a>
-      </div>
+     </div>
+
+     <div class="iconbox">
+      <a class="button level-item has-text-centered is-sparta navbar-icon" href="/user/{{ user_info.username }}">
+       <i class="fa-solid fa-user"></i>
+             <!-- <img class="is-rounded" src="{{ url_for('static', filename=user_info.profile_pic_real) }}"> -->
+         </a>
+     <a
+     class="button level-item has-text-centered is-sparta navbar-icon"
+     aria-label="logout"
+     onclick="sign_out()">
+     <i class="fa-solid fa-right-from-bracket"></i></a></div>
     </nav>
     <section class="section">
       <article class="media">
           <figure class="media-left" style="align-self: center">
-              
+           
           </figure>
          
           </div>
