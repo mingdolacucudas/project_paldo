@@ -141,9 +141,9 @@ def save_img():
 
 
 #리뷰기능
-#@app.route('/review')
-#def reviewpage():
-#    return render_template('review.html')
+@app.route('/review')
+def reviewpage():
+   return render_template('review.html')
 
 
 
@@ -164,12 +164,13 @@ def write_review():
     return jsonify({'msg': '저장 완료!'})
 
 
-@app.route('/review', methods=['GET'])
+@app.route('/review/get', methods=['GET'])
 def read_reviews():
     reviews = list(db.review_paldo.find({}, {'_id': False}))
-    return render_template('review.html')
+    
+    return jsonify({'all_reviews': reviews}) 
 #render_template('review.html')
-#jsonify({'all_reviews': reviews}) 
+#
 #예매하기 페이지
 @app.route('/secretpage')
 def web_mars_get():

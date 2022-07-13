@@ -57,7 +57,7 @@
       function showReview() {
         $.ajax({
           type: "GET",
-          url: "/review",
+          url: "/review/get",
           data: {},
           success: function (response) {
             let reviews = response["all_reviews"];
