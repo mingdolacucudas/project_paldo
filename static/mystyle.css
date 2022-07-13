@@ -44,7 +44,6 @@ input::-webkit-calendar-picker-indicator {
   height: 100%;
 }
 
-
 .navbar{
  min-height: 6.25rem;
  display: flex;
@@ -72,25 +71,3 @@ input::-webkit-calendar-picker-indicator {
 .festival-box {
   background-color: #80cbc4 !important;;
 }
-
-/*.festival {*/
-/*  width: 980px;*/
-/*  !*height: 200px;*!*/
-/*  text-align: center;*/
-/*  margin: auto;*/
-/*  padding-top: 50px;*/
-/*  column-width: 300px;*/
-/*  flex-wrap: wrap;*/
-/*}*/
-/*!*#cards_box {*!*/
-/*!*  display: inline;*!*/
-/*!*  !*display: grid;*!*!*/
-/*!*  !*flex-flow: row-reverse wrap;*!*!*/
-/*!*	!*grid-template-columns: 400px 400px 400px;*!*!*/
-/*!*	!*grid-template-rows: 400px 400px;*!*!*/
-/*!*}*!*/
-
-/*.col {*/
-/*  width: 100px;*/
-/*  height: 200px;*/
-/*}*/
