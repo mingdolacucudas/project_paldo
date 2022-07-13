@@ -1,4 +1,3 @@
-# 안녕하세요
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from pymongo import MongoClient
 app = Flask(__name__)
@@ -10,18 +9,14 @@ ca = certifi.where()
 client = MongoClient('mongodb+srv://test:sparta@cluster0.ysqxz.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
 db = client.dbsparta
 
+headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+
+
 ## HTML을 주는 부분
 @app.route('/')
 def home():
     return render_template('index.html')
 
-@app.route('/main')
-def main():
-    return render_template("main.html")
-
-@app.route('/seoul')
-def seoul():
-    return render_template("seoul.html")
 
 @app.route('/secretpage')
 def web_mars_get():
