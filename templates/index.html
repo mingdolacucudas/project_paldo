@@ -1,67 +1,163 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <!-- Webpage Title -->
-    <title>Home | SWEETER</title>
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bulma CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <title>팔도 어때</title>
+
     <!-- Font Awesome CSS -->
     <link
       href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
+    <script src="https://kit.fontawesome.com/5b75d34f0e.js" crossorigin="anonymous"></script>
     <!-- css파일 링크-->
     <link
       href="{{ url_for('static', filename='mystyle.css') }}"
       rel="stylesheet"
     />
+      <!-- 구글폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gugi&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap"
+      rel="stylesheet"
+    />
 
+    <style>
+        * {
+            font-family: 'Gugi', cursive;
+        }
+        .festival {
+            width: 1200px;
+            height: 200px;
+            text-align: center;
+            margin: auto;
+            padding-top: 50px
+
+        }
+        .festival > col {
+            width: 100px;
+            height: 200px;
+        }
+
+    </style>
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
-    <script></script>
-  </head>
-  <body>
+    <script>
+        //쿠키를 지워주는 함수
+      function sign_out() {
+        $.removeCookie("mytoken", { path: "/" });
+        alert("안녕히 가세요(●'◡'●)");
+        window.location.href = "/login";
+      }
+
+        $(document).ready(function () {
+            listing();
+        });
+
+        function listing() {
+            $.ajax({
+                type: "GET",
+                url: "/secretpage",
+                data: {},
+                success: function (response) {
+                    let rows = response["festivals"]
+                    for (let i = 0; i < rows.length; i++) {
+                        let title = rows[i]['title']
+                        let image = rows[i]['image']
+                        let where_place = rows[i]['where_place']
+                        let url = rows[i]['url']
+                        let all_date = rows[i]['all_date']
+
+                        let temp_html = `<div class="col">
+                                                    <div class="card h-100">
+                                                        <img src="${image}" class="card-img-top"
+                                                             alt="...">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">${title}</h5>
+                                                            <p class="card-text">${where_place}</p>
+                                                            <a href="http://ticket.interpark.com/${url}" class="btn btn-warning"
+                                                               role="button">예매 하기</a>
+                                                            <button type="button" class="btn btn-success">리뷰 쓰기</button>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <small class="text-muted">${all_date}</small>
+                                                        </div>
+                                                    </div>
+                                                </div>`;
+                        $('#cards_box').append(temp_html)
+                    }
+                    console.log(rows);
+                }
+            })
+        }
+    </script>
+</head>
+
+<body>
     <nav
       class="navbar is-fixed-top is-white"
       role="navigation"
       aria-label="main navigation"
+      style="background-color: #fff !important; margin-top: 0px;"
     >
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <img src="{{ url_for('static', filename='logo.png') }}" />
+      <div style="margin-left: 850px" class="navbar-brand">
+        <a style="text-decoration: none;" class="navbar-item" href="/">
+          <!-- <img src="{{ url_for('static', filename='logo.png') }}" /> -->
           <strong
             class="is-sparta"
-            style="font-family: 'Stylish', sans-serif; font-size: larger"
+            style="font-family: 'Gugi', cursive; font-size: 3rem; color:  #80cbc4 !important;"
             >팔도어때</strong
           >
         </a>
-        <a class="image is-32x32" href="/user/{{ user_info.username }}">
-                  <img class="is-rounded" src="{{ url_for('static', filename=user_info.profile_pic_real) }}">
-              </a>
-      </div>
+     </div>
+
+     <div class="iconbox">
+      <a class="button level-item has-text-centered is-sparta navbar-icon" href="/user/{{ user_info.username }}">
+       <i style="color: #fff !important;; background-color: #80cbc4; padding: 5px" class="fa-solid fa-2x fa-user"></i>
+             <!-- <img class="is-rounded" src="{{ url_for('static', filename=user_info.profile_pic_real) }}"> -->
+         </a>
+     <a
+     class="button level-item has-text-centered is-sparta navbar-icon"
+     aria-label="logout"
+     onclick="sign_out()">
+     <i style="color: #fff !important;; background-color: #80cbc4; padding: 5px" class="fa-solid fa-2x fa-right-from-bracket"></i></a></div>
     </nav>
     <section class="section">
       <article class="media">
           <figure class="media-left" style="align-self: center">
-              
+
           </figure>
-         
-          </div>
+
       </article>
   </section>
+    <div style="margin-top:30px">
+        {{ user_info.username }}님이 선택한 축제는?
+    </div>
+    <div class="festival">
+        <div id="cards_box" class="row row-cols-1 row-cols-md-4 g-4">
+        </div>
+    </div>
 
-  </body>
+
+</body>
+
 </html>
