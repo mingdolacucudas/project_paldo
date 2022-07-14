@@ -1,4 +1,3 @@
-
 function sign_in() {
   let username = $("#input-username").val();
   let password = $("#input-password").val();
@@ -114,10 +113,12 @@ function toggle_sign_up() {
   $("#help-id").toggleClass("is-hidden");
   $("#help-password").toggleClass("is-hidden");
   $("#help-password2").toggleClass("is-hidden");
+  $("#help-id-login").toggleClass("is-hidden");
+  $("#help-password-login").toggleClass("is-hidden");
 }
 
 function is_nickname(asValue) {
-  var regExp = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{2,10}$/;
+  var regExp = /^[a-z]+[a-z0-9]{5,19}$/g;
   return regExp.test(asValue);
 }
 
