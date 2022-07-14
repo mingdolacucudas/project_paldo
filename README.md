@@ -13,10 +13,10 @@
 
 
 ### 참여한 사람들 
-* 김혜미:
-* 박경원:
-* 전민지:
-* 조은지:
+* 김혜미:https://github.com/hemi333
+* 박경원:https://github.com/kyung-Park
+* 전민지:https://github.com/mingdolacucudas
+* 조은지:https://github.com/JJooonji
 
 
 ### 사용한 기술 
