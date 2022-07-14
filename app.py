@@ -162,16 +162,18 @@ def write_review():
     title_receive = request.form['title_give']
     author_receive = request.form['author_give']
     review_receive = request.form['review_give']
+    star_receive = request.form['star_give']
 
     doc = {
         'title':title_receive,
         'author':author_receive,
-        'review':review_receive
+        'review':review_receive,
+        'star':star_receive
     }
 
     db.review_paldo.insert_one(doc)
 
-    return jsonify({'msg': '저장 완료!'})
+    return jsonify({'msg': '리뷰 작성완료!'})
 
 
 @app.route('/review/get', methods=['GET'])
